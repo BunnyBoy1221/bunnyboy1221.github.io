@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Flow";
+    src: url("resources/flow.ttf");
+}
+
+.flow {
+    font-family: "Flow";
+    font-size: 30px;
+}
