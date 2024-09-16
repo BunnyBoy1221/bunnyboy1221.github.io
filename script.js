@@ -7,7 +7,7 @@ output = document.getElementById("output");
 // Work Area
 
 function sendResult() {
-    output.value = `-${cleanedInput}`;
+    output.value = `&#x202e;-${cleanedInput}`;
 }
 
 // Event Listeners
@@ -50,10 +50,7 @@ function cleanInput() {
         .replaceAll("WW", "W`")
         .replaceAll("XX", "X`")
         .replaceAll("YY", "Y`")
-        .replaceAll("ZZ", "Z`")
-        .split("")
-        .reverse()
-        .join("");
+        .replaceAll("ZZ", "Z`");
         sendResult();
 }
 
