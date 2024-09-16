@@ -7,7 +7,7 @@ output = document.getElementById("output");
 // Work Area
 
 function sendResult() {
-    output.value = `&#x202e;-${cleanedInput}`;
+    output.innerHTML = `&#x202e;-${cleanedInput}`;
 }
 
 // Event Listeners
