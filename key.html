@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Encoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        #result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Key Encoder</h1>
+    <label for="message">Message:</label>
+    <input type="text" id="message" placeholder="Enter your message">
+    
+    <label for="key">Key:</label>
+    <input type="text" id="key" placeholder="Enter your key">
+    
+    <button onclick="encodeMessage()">Encode</button>
+    
+    <p id="result"></p>
+
+    <script>
+        function encodeMessage() {
+            const message = document.getElementById('message').value;
+            const key = document.getElementById('key').value;
+            const result = document.getElementById('result');
+
+            // Extend the key to match the length of the message
+            let extendedKey = '';
+            let keyIndex = 0;
+
+            for (let i = 0; i < message.length; i++) {
+                if (message[i].match(/[a-zA-Z]/)) {
+                    extendedKey += key[keyIndex % key.length];
+                    keyIndex++;
+                } else {
+                    extendedKey += ' '; // Placeholder for special characters
+                }
+            }
+
+            let encodedMessage = '';
+            for (let i = 0; i < message.length; i++) {
+                const messageChar = message[i];
+                const keyChar = extendedKey[i];
+
+                if (messageChar.match(/[a-zA-Z]/) && keyChar.match(/[a-zA-Z]/)) {
+                    const messageCharCode = messageChar.toLowerCase().charCodeAt(0);
+                    const keyCharCode = keyChar.toLowerCase().charCodeAt(0);
+
+                    // Calculate the new character code
+                    const newCharCode = ((messageCharCode - 97 + (keyCharCode - 97)) % 26) + 98;
+
+                    // Append the encoded character in lowercase
+                    encodedMessage += String.fromCharCode(newCharCode);
+                } else {
+                    // Directly append non-alphabet characters
+                    encodedMessage += messageChar;
+                }
+            }
+
+            // Display the result
+            result.textContent = `Encoded Message: ${encodedMessage}`;
+        }
+    </script>
+</body>
+</html>
