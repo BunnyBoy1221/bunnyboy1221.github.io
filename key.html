@@ -60,7 +60,7 @@
                     const keyCharCode = keyChar.toLowerCase().charCodeAt(0);
 
                     // Calculate the new character code
-                    const newCharCode = ((messageCharCode - 97 + (keyCharCode - 97)) % 26) + 98;
+                    const newCharCode = ((messageCharCode - 96 + (keyCharCode - 96)) % 26) + 96;
 
                     // Append the encoded character in lowercase
                     encodedMessage += String.fromCharCode(newCharCode);
