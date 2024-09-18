@@ -46,6 +46,7 @@
             let extendedKey = '';
             let keyIndex = 0;
 
+            // Create the extended key based on the encoded message
             for (let i = 0; i < encodedMessage.length; i++) {
                 if (encodedMessage[i].match(/[a-zA-Z]/)) {
                     extendedKey += key[keyIndex % key.length];
@@ -65,7 +66,7 @@
                     const keyCharCode = keyChar.toLowerCase().charCodeAt(0) - 96; // 'a' is 1
 
                     // Calculate the original character code
-                    const originalCharCode = (encodedCharCode - keyCharCode + 26) % 26 + 1; // Adjust to 1-26 range
+                    const originalCharCode = (encodedCharCode - keyCharCode + 26) % 26 || 26; // Adjust to 1-26 range
 
                     // Append the decoded character
                     decodedMessage += String.fromCharCode(originalCharCode + 96); // Convert back to ASCII
