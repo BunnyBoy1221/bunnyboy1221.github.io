@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <h1>Key Decoder</h1>
+    <h1>Key Decoder / <a href="keyEncoder.html">Encoder</a></h1>
     <label for="encodedMessage">Encoded Message:</label>
     <input type="text" id="encodedMessage" placeholder="Enter your encoded message">
     
@@ -27,9 +27,10 @@
     <input type="text" id="key" placeholder="Enter your key">
     
     <button id='inputBtn' onclick="decodeMessage()">Decode</button>
+    <button id='clearBtn' onclick="clearInputs()">Clear</button>
     
     <p id="result"></p>
-    <p><a href="index.html">Flow Encoder</a></p>
+    <p><a href="index.html">Flow Decoder</a></p>
 
     <script>
         function decodeMessage() {
@@ -37,8 +38,8 @@
             const key = document.getElementById('key').value;
             const result = document.getElementById('result');
 
-            if (!key) {
-                result.textContent = "Key cannot be empty!";
+            if (!encodedMessage || !key) {
+                result.textContent = "Please enter both an encoded message and a key.";
                 return;
             }
 
@@ -50,7 +51,7 @@
                     extendedKey += key[keyIndex % key.length];
                     keyIndex++;
                 } else {
-                    extendedKey += encodedMessage[i]; // Keep non-alphabetic characters as they are
+                    extendedKey += ' '; // Placeholder for special characters
                 }
             }
 
@@ -59,19 +60,29 @@
                 const encodedChar = encodedMessage[i];
                 const keyChar = extendedKey[i];
 
-                if (encodedChar.match(/[a-zA-Z]/)) {
-                    const encodedCharCode = encodedChar.toLowerCase().charCodeAt(0);
-                    const keyCharCode = keyChar.toLowerCase().charCodeAt(0);
+                if (encodedChar.match(/[a-zA-Z]/) && keyChar.match(/[a-zA-Z]/)) {
+                    const encodedCharCode = encodedChar.toLowerCase().charCodeAt(0) - 96; // 'a' is 1
+                    const keyCharCode = keyChar.toLowerCase().charCodeAt(0) - 96; // 'a' is 1
 
-                    const newCharCode = ((encodedCharCode - 97 - (keyCharCode - 97) + 26) % 26) + 97;
+                    // Calculate the original character code
+                    const originalCharCode = (encodedCharCode - keyCharCode + 26) % 26 + 1; // Adjust to 1-26 range
 
-                    decodedMessage += String.fromCharCode(newCharCode);
+                    // Append the decoded character
+                    decodedMessage += String.fromCharCode(originalCharCode + 96); // Convert back to ASCII
                 } else {
+                    // Directly append non-alphabet characters
                     decodedMessage += encodedChar;
                 }
             }
 
+            // Display the result
             result.textContent = `Decoded Message: ${decodedMessage}`;
+        }
+
+        function clearInputs() {
+            document.getElementById('encodedMessage').value = '';
+            document.getElementById('key').value = '';
+            document.getElementById('result').textContent = '';
         }
 
         document.addEventListener("keypress", function(event) {
