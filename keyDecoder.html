@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Decoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        #result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Key Decoder</h1>
+    <label for="encodedMessage">Encoded Message:</label>
+    <input type="text" id="encodedMessage" placeholder="Enter your encoded message">
+    
+    <label for="key">Key:</label>
+    <input type="text" id="key" placeholder="Enter your key">
+    
+    <button id='inputBtn' onclick="decodeMessage()">Decode</button>
+    
+    <p id="result"></p>
+    <p><a href="index.html">Flow Encoder</a></p>
+
+    <script>
+        function decodeMessage() {
+            const encodedMessage = document.getElementById('encodedMessage').value;
+            const key = document.getElementById('key').value;
+            const result = document.getElementById('result');
+
+            if (!key) {
+                result.textContent = "Key cannot be empty!";
+                return;
+            }
+
+            let extendedKey = '';
+            let keyIndex = 0;
+
+            for (let i = 0; i < encodedMessage.length; i++) {
+                if (encodedMessage[i].match(/[a-zA-Z]/)) {
+                    extendedKey += key[keyIndex % key.length];
+                    keyIndex++;
+                } else {
+                    extendedKey += encodedMessage[i]; // Keep non-alphabetic characters as they are
+                }
+            }
+
+            let decodedMessage = '';
+            for (let i = 0; i < encodedMessage.length; i++) {
+                const encodedChar = encodedMessage[i];
+                const keyChar = extendedKey[i];
+
+                if (encodedChar.match(/[a-zA-Z]/)) {
+                    const encodedCharCode = encodedChar.toLowerCase().charCodeAt(0);
+                    const keyCharCode = keyChar.toLowerCase().charCodeAt(0);
+
+                    const newCharCode = ((encodedCharCode - 97 - (keyCharCode - 97) + 26) % 26) + 97;
+
+                    decodedMessage += String.fromCharCode(newCharCode);
+                } else {
+                    decodedMessage += encodedChar;
+                }
+            }
+
+            result.textContent = `Decoded Message: ${decodedMessage}`;
+        }
+
+        document.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                document.getElementById('inputBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>
