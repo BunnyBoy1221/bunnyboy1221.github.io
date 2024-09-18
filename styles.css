@@ -7,6 +7,6 @@
     font-family: "Flow";
     font-size: 30px;
     text-align: right;
-    min-width: 150%;
-    min-height: 150%;
+    min-width: 100%;
+    min-height: 300px;
 }
