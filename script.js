@@ -50,7 +50,13 @@ function cleanInput() {
         .replaceAll("WW", "Wb")
         .replaceAll("XX", "Xb")
         .replaceAll("YY", "Yb")
-        .replaceAll("ZZ", "Zb");
+        .replaceAll("ZZ", "Zb")
+        .replaceAll("?!", "a")
+        .replaceAll("!?", "a")
+        .replaceAll(". ", ".")
+        .replaceAll(", ", ",")
+        .replaceAll("? ", "?")
+        .replaceAll("! ", "!");
         sendResult();
 }
 
