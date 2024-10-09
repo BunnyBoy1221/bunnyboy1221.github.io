@@ -53,10 +53,16 @@ function cleanInput() {
         .replaceAll("ZZ", "Zb")
         .replaceAll("?!", "a")
         .replaceAll("!?", "a")
+        .replaceAll("a ", "a")
         .replaceAll(". ", ".")
         .replaceAll(", ", ",")
         .replaceAll("? ", "?")
-        .replaceAll("! ", "!");
+        .replaceAll("! ", "!")
+        .replaceAll("aa", "ab")
+        .replaceAll("..", ".b")
+        .replaceAll(",,", ",b")
+        .replaceAll("??", "?b")
+        .replaceAll("!!", "!b");
         sendResult();
 }
 
