@@ -9,5 +9,5 @@
     text-align: right;
     min-width: 100%;
     min-height: 100%;
-    word-wrap: break-word;
+    word-wrap: break-all;
 }
