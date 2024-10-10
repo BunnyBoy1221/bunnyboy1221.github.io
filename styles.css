@@ -8,5 +8,6 @@
     font-size: 30px;
     text-align: right;
     min-width: 100%;
-    min-height: 300px;
+    min-height: 40%;
+    word-wrap: break-word;
 }
