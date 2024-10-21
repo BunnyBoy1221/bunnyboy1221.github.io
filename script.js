@@ -59,12 +59,10 @@ function cleanInput() {
         .replaceAll("? ", "?")
         .replaceAll("! ", "!")
         .replaceAll("aa", "ab")
+        .replaceAll("...", ".c")
         .replaceAll("..", ".b")
         .replaceAll(",,", ",b")
         .replaceAll("??", "?b")
         .replaceAll("!!", "!b");
         sendResult();
 }
-
-// Testing Purposes
-
